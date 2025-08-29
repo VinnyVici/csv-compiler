@@ -7,8 +7,9 @@ A web-based tool to compile multiple CSV files with identical or different colum
 - **Smart Column Merging**: Automatically detects and merges columns from different CSV files
 - **Flexible Structure**: Handles CSV files with different column structures
 - **Web Interface**: Simple drag-and-drop interface for file uploads
+- **Custom Output Destination**: Choose between browser download or custom filename
 - **Data Preservation**: Missing columns are filled with empty values, no data loss
-- **Download Results**: Instantly download the compiled CSV file
+- **Instant Results**: Download compiled CSV files immediately
 
 ## How It Works
 
@@ -71,8 +72,11 @@ http://localhost:3000
    - Dragging and dropping files onto the upload area, OR
    - Clicking the upload area and selecting files
 3. **Review uploaded files** in the file list
-4. **Click "Compile CSV Files"** to process
-5. **Download the result** using the download button
+4. **Choose output destination**:
+   - **Download to Browser**: Files download to your default Downloads folder
+   - **Save to Custom Location**: Choose a custom filename (Note: Due to web security, files are saved in the server's output directory but named according to your preference)
+5. **Click "Compile CSV Files"** to process
+6. **Download the result** using the download button
 
 ### Via Command Line (Advanced)
 

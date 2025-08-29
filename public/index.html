@@ -30,6 +30,15 @@
 
                 <div class="file-list" id="fileList"></div>
 
+                <div class="output-section">
+                    <h3>Output Settings</h3>
+                    <div class="output-filename">
+                        <label for="outputFilename">Output Filename:</label>
+                        <input type="text" id="outputFilename" placeholder="compiled-data.csv" value="compiled-data.csv">
+                        <small>File will be downloaded to your Downloads folder</small>
+                    </div>
+                </div>
+
                 <button id="compileBtn" class="compile-btn" disabled>
                     <span>Compile CSV Files</span>
                     <div class="spinner" style="display: none;"></div>
@@ -82,6 +91,7 @@
         </footer>
     </div>
 
+    <script src="csv-processor.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -121,6 +121,126 @@ header p {
     background-color: #fadbd8;
 }
 
+.output-section {
+    margin: 30px 0;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.output-section h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.output-options {
+    margin-bottom: 20px;
+}
+
+.output-option {
+    margin-bottom: 15px;
+}
+
+.output-option label {
+    display: block;
+    cursor: pointer;
+    padding: 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.output-option label:hover {
+    border-color: #3498db;
+    background-color: #f8fbff;
+}
+
+.output-option input[type="radio"] {
+    margin-right: 12px;
+}
+
+.output-option input[type="radio"]:checked + span {
+    color: #3498db;
+    font-weight: 600;
+}
+
+.output-option label:has(input[type="radio"]:checked) {
+    border-color: #3498db;
+    background-color: #f8fbff;
+}
+
+.output-option span {
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.output-option small {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.custom-output {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.output-filename,
+.output-directory {
+    margin-bottom: 20px;
+}
+
+.output-filename label,
+.output-directory label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.output-filename input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.directory-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.directory-selector input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+}
+
+.browse-btn {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.browse-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
+}
+
 .compile-btn {
     width: 100%;
     background: linear-gradient(135deg, #3498db, #2980b9);

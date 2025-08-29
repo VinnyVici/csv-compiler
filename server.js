@@ -45,7 +45,26 @@ app.post('/compile', upload.array('csvFiles'), async (req, res) => {
 
     const compiler = new CSVCompiler();
     const filePaths = req.files.map(file => file.path);
-    const outputPath = path.join('output', `compiled-${Date.now()}.csv`);
+    const outputType = req.body.outputType || 'download';
+    
+    let outputPath;
+    let isCustomPath = false;
+
+    if (outputType === 'custom') {
+      const customFilename = req.body.customFilename || 'compiled-data.csv';
+      const customDirectory = req.body.customDirectory;
+      
+      if (!customDirectory) {
+        return res.status(400).json({ error: 'Custom directory not specified' });
+      }
+
+      // For web security, we'll save to output directory with custom name
+      // In a real desktop app, you'd write directly to the custom path
+      outputPath = path.join('output', customFilename);
+      isCustomPath = true;
+    } else {
+      outputPath = path.join('output', `compiled-${Date.now()}.csv`);
+    }
 
     const result = await compiler.compileCSVFiles(filePaths, outputPath);
     
@@ -56,7 +75,10 @@ app.post('/compile', upload.array('csvFiles'), async (req, res) => {
 
     res.json({
       ...result,
-      downloadUrl: `/download/${path.basename(outputPath)}`
+      downloadUrl: `/download/${path.basename(outputPath)}`,
+      outputType: outputType,
+      customPath: isCustomPath ? req.body.customDirectory : null,
+      actualFilename: path.basename(outputPath)
     });
 
   } catch (error) {

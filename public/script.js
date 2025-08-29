@@ -1,6 +1,7 @@
 class CSVCompilerApp {
     constructor() {
         this.files = [];
+        this.csvProcessor = new CSVProcessor();
         this.initializeElements();
         this.attachEventListeners();
     }
@@ -16,6 +17,9 @@ class CSVCompilerApp {
         this.resultStats = document.getElementById('resultStats');
         this.downloadBtn = document.getElementById('downloadBtn');
         this.errorMessage = document.getElementById('errorMessage');
+        
+        // Output filename element
+        this.outputFilename = document.getElementById('outputFilename');
     }
 
     attachEventListeners() {
@@ -114,26 +118,11 @@ class CSVCompilerApp {
         this.hideError();
         this.hideResults();
 
-        const formData = new FormData();
-        this.files.forEach(file => {
-            formData.append('csvFiles', file);
-        });
-
         try {
-            const response = await fetch('/compile', {
-                method: 'POST',
-                body: formData
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                this.showResults(result);
-            } else {
-                this.showError(result.error || 'Compilation failed');
-            }
+            const result = await this.csvProcessor.processFiles(this.files);
+            this.showResults(result);
         } catch (error) {
-            this.showError('Network error: ' + error.message);
+            this.showError(error.message);
         } finally {
             this.setLoading(false);
         }
@@ -142,7 +131,9 @@ class CSVCompilerApp {
     showResults(result) {
         this.resultMessage.textContent = result.message;
         
-        this.resultStats.innerHTML = `
+        const filename = this.outputFilename.value || 'compiled-data.csv';
+        
+        let statsHTML = `
             <div class="stat-item">
                 <span class="stat-label">Files Processed:</span>
                 <span class="stat-value">${this.files.length}</span>
@@ -161,8 +152,10 @@ class CSVCompilerApp {
             </div>
         `;
 
+        this.resultStats.innerHTML = statsHTML;
+
         this.downloadBtn.onclick = () => {
-            window.open(result.downloadUrl, '_blank');
+            this.csvProcessor.downloadCSV(result.data, result.headers, filename);
         };
 
         this.resultsSection.style.display = 'block';
